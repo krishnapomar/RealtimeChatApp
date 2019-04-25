@@ -1,0 +1,265 @@
+body {
+    /*background-image: url("../images/background_image.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;*/
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+html {
+    /*height: 100%*/
+}
+
+.navbar {
+    overflow: hidden;
+    background-color: #1c6190;
+    width: auto;
+}
+
+.navbar a {
+    float: left;
+    font-size: 1rem;
+    color: white;
+    text-align: center;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+}
+
+.topnav-left {
+    margin-top: 5px;
+    margin-left: 23px;
+    float: left;
+    margin-right: 80px;
+    width: 70px;
+    height: 50px;
+}
+
+.topnav-right {
+    color: white;
+    float: right;
+    margin-right: 2em;
+    font: bolder;
+}
+
+.card {
+    box-shadow: 0px 1px 5px #555;
+    background-color: #FBFBFD;
+    /*background-image: url("../images/arts.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;*/ 
+}
+
+.domain {
+    float: left;
+    font-size: 1.5rem;
+    text-align: center;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    margin-left: 2em;
+}
+
+.domainBanner {
+    box-shadow: 0px 1px 5px #555;
+    background-color: #EEEEEE;
+    overflow: hidden;
+    width: auto;
+}
+
+.searchText {
+    border: none;
+    width: 30em;
+    height: 2em;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0.5em;
+    vertical-align: middle;
+}
+
+.questionContainer {
+    display: inline-block;
+    width: 85%;
+    margin-left: 5em;
+    margin-top: 1em;
+}
+
+.questionView {
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.questionView::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.questionView:hover {
+    background-color: darkgrey;
+}
+
+.questionView img {
+    float: left;
+    max-width: 60px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
+}
+
+.question {
+    font-size: 0.5em;
+}
+
+.questionBy {
+    float: right;
+    color: #999;
+}
+
+.questionTime {
+    float: left;
+    color: #999;
+}
+
+.askButton {
+    background-color: #1c6190;
+    color: white;
+    font-size: 1em;
+    border-radius: 2em;
+    border: none;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+}
+
+.cardDescription {
+    padding: .5rem;
+    line-height: 1.6em;
+    color: darkslategray;
+}
+
+.domainHeader {
+    width: 100%;
+    height: 2.5em;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    background-color: #1c6190;
+    font-size: 1em;
+    padding: 0;
+    border: none;
+    display: flex;
+    justify-content: center; /* align horizontal */
+    align-items: center;
+}
+
+.cardContainer {
+    margin: 3em;
+    display: grid;
+    padding: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    grid-gap: 3em;
+}
+
+.card:hover {
+    transform: scale(1.1);
+}
+
+
+@media (max-width: 800px) {
+    .navbar {
+        top: 0;
+        background-color: #1c6190;
+        width: 100%;
+    }
+
+    .cardContainer {
+        margin: 0.5em;
+        display: grid;
+        padding: 1rem;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 3fr));
+        grid-gap: 1em;
+    }
+
+    .cardDescription {
+        line-height: 1em;
+        font-size: 0.75em;
+    }
+
+    .progressBar {
+        font-size: 0.85em;
+    }
+
+    .domain {
+        float: left;
+        font-size: 1rem;
+        margin: 0;
+    }
+
+    .domainBanner {
+        background-color: #EEEEEE;
+        overflow: hidden;
+        width: auto;
+    }
+
+    .searchText {
+        width: 13em;
+        height: 1.2em;
+    }
+
+    .questionContainer {
+        display: inline-block;
+        margin: 0.5em 0.5em;
+        width: 95%;
+    }
+
+    .questionView {
+        padding: 5px;
+        margin: 5px 0;
+        font-size: 1em;
+    }
+
+    .questionBy {
+        float: right;
+        color: #999;
+        font-size: 0.5em;
+    }
+
+    .question {
+        font-size: 0.5em;
+    }
+
+    .questionTime {
+        float: left;
+        color: #999;
+        font-size: 0.5em;
+    }
+    
+    .questionView img {
+        float: left;
+        max-width: 28px;
+        width: 100%;
+        margin-right: 5px;
+        border-radius: 50%;
+    }
+
+    .askButton {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        margin-right: 10px;
+        margin-bottom: 20px;
+        background-color: #1c6190;
+        color: white;
+        font-size: 1em;
+        border-radius: 1em;
+        border: none;
+        background-repeat: no-repeat;
+        cursor: pointer;
+        overflow: hidden;
+        outline: none;
+    }
+
+    .card:hover {
+        transform: none;
+    }
+}

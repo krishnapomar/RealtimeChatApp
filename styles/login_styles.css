@@ -1,0 +1,105 @@
+body {
+    background-image: url("../images/background_image.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+html {
+    height: 100%
+}
+
+.dataHeader {
+    margin-top: 5rem;
+    text-align: center;
+    font-size: 2rem;
+    color: lightyellow;
+}
+
+.intro {
+    margin: 10px;
+    text-align: center;
+    color: lightyellow;
+}
+
+.loginBtnWrapper {
+    margin-top: 8em;
+    text-align: center;
+}
+
+.loginBtn {
+    margin: auto;
+    display: block;
+    background-color: white;
+    color: #1c6190;
+    font-size: 1em;
+    border: none;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    box-shadow: 0px 1px 5px #C0C0C0;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.loginBtn:visited {
+    background-color: #1c6190;
+    color: white;
+        
+}
+
+.loginBtn:focus {
+    background-color: #1c6190;
+    color: white;
+}
+
+.loginBtn:hover {
+    background-color: #1c6190;
+    color: white;
+}
+
+.loginBtn img{
+    width: 25px;
+    height: 25px;
+}
+
+.header {
+    color: #33b5e5;
+    text-align: center;
+}
+
+.odometer {
+    font-size: 3rem;
+    text-align: right;
+    color: black;
+    width: 5em;
+}
+
+hr {
+    border: thick;
+    border-top: 1px solid;
+    color: #fff;
+    background-color: lightgrey;
+    height: 1px;
+    width: 30em;
+}
+
+
+@media (max-width: 800px) {
+    .dataHeader {
+        margin-top: 2.5rem;
+        text-align: center;
+        font-size: 2rem;
+        color: lightyellow;
+    }
+
+    hr {
+        border: thick;
+        border-top: 1px solid;
+        color: #fff;
+        background-color: lightgrey;
+        height: 1px;
+        width: 20em;
+    }
+}

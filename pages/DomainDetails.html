@@ -1,0 +1,16 @@
+﻿<div ng-controller="domainController">
+    <div class="domainBanner">
+        <label class="domain">{{selectedDomain}}</label>
+        <!--<img src="../images/search.jpg" />-->
+        <input class="searchText" placeholder="Search your question here.." />
+        <button class="askButton" ng-click="askQuestion()">Ask</button>
+    </div>
+    <div class="questionContainer">
+        <div class="questionView" data-ng-repeat="q in questions" ng-click="selectQuestion(q)">
+            <img src={{q.chatProfilePic}} onerror="this.src='../images/avatar.png'" />
+            <span class="question">{{q.chatMsg}}</span>
+            <!--<span class="questionBy">{{q.chatBy}}</span>
+            <span class="questionTime">{{q.chatTime}}</span>-->
+        </div>
+    </div>
+</div>
