@@ -1,16 +1,30 @@
-﻿<div ng-controller="domainController">
+﻿<div>
+    <div class="navbar">
+        <div class="topnav-left">
+            <a href="#Asked">Asked</a>
+        </div>
+        <div class="topnav-left">
+            <a href="#Answered">Answered</a>
+        </div>
+        <div class="topnav-right">
+            <a href="#Home">Dashboard</a>
+            <img async=on id="userProfilePic" src='../images/avatar.png' />
+        </div>
+    </div>
     <div class="domainBanner">
         <label class="domain">{{selectedDomain}}</label>
-        <!--<img src="../images/search.jpg" />-->
-        <input class="searchText" placeholder="Search your question here.." />
-        <button class="askButton" ng-click="askQuestion()">Ask</button>
+        <input class="searchText" placeholder="Search your question..." />
+        <button class="askButton" ng-click="askQuestion()">Ask a Question</button>
+    </div>
+    <div class="spinner" id="spinner">
+        <img src="../images/spinner.gif" />
     </div>
     <div class="questionContainer">
         <div class="questionView" data-ng-repeat="q in questions" ng-click="selectQuestion(q)">
-            <img src={{q.chatProfilePic}} onerror="this.src='../images/avatar.png'" />
-            <span class="question">{{q.chatMsg}}</span>
-            <!--<span class="questionBy">{{q.chatBy}}</span>
-            <span class="questionTime">{{q.chatTime}}</span>-->
+            <img async=on src={{q.chatProfilePic}} onerror="this.src='../images/avatar.png'" />
+            <p>{{q.chatMsg}}</p>
+            <span class="questionBy">{{q.chatBy}}</span>
+            <span class="questionTime">{{q.chatTime}}</span>
         </div>
     </div>
 </div>

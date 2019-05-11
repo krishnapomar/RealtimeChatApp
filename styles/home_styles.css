@@ -1,45 +1,54 @@
 body {
-    /*background-image: url("../images/background_image.jpg");
-    background-repeat: no-repeat;
-    background-size: 100% 100%;*/
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
 }
 
-html {
-    /*height: 100%*/
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+.homeHeader {
+    text-align: center;
+    color: #1c6190;
+    margin: -10px;
 }
 
 .navbar {
     overflow: hidden;
     background-color: #1c6190;
     width: auto;
+    display: block;
+    align-items: center;
 }
 
-.navbar a {
-    float: left;
-    font-size: 1rem;
-    color: white;
-    text-align: center;
-    padding: 0.5rem 1rem;
-    text-decoration: none;
-}
+    .navbar a {
+        font-size: 1rem;
+        color: white;
+        padding: 0.5rem 1rem;
+        text-decoration: none;
+        height: 40px;
+        line-height: 40px;
+    }
 
 .topnav-left {
-    margin-top: 5px;
-    margin-left: 23px;
+    margin-left: 5px;
     float: left;
-    margin-right: 80px;
-    width: 70px;
-    height: 50px;
+    margin-right: 20px;
 }
 
 .topnav-right {
     color: white;
     float: right;
-    margin-right: 2em;
+    margin-right: 1em;
     font: bolder;
 }
+
+    .topnav-right img {
+        float: right;
+        max-width: 40px;
+        margin-right: 5px;
+        border-radius: 50%;
+    }
 
 .card {
     box-shadow: 0px 1px 5px #555;
@@ -47,7 +56,7 @@ html {
     /*background-image: url("../images/arts.jpg");
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;*/ 
+    background-size: cover;*/
 }
 
 .domain {
@@ -64,6 +73,19 @@ html {
     background-color: #EEEEEE;
     overflow: hidden;
     width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.domainAnswerBanner {
+    box-shadow: 0px 1px 5px #555;
+    background-color: #EEEEEE;
+    overflow: hidden;
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .searchText {
@@ -71,15 +93,13 @@ html {
     width: 30em;
     height: 2em;
     font-family: Arial, Helvetica, sans-serif;
-    margin: 0.5em;
-    vertical-align: middle;
 }
 
 .questionContainer {
     display: inline-block;
-    width: 85%;
     margin-left: 5em;
     margin-top: 1em;
+    width: 90%;
 }
 
 .questionView {
@@ -87,23 +107,25 @@ html {
     margin: 10px 0;
 }
 
-.questionView::after {
-    content: "";
-    clear: both;
-    display: table;
-}
+    .questionView::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
 
-.questionView:hover {
-    background-color: darkgrey;
-}
+    .questionView:hover {
+        background-color: lightgray;
+        border-radius: 1em;
+        cursor: pointer;
+    }
 
-.questionView img {
-    float: left;
-    max-width: 60px;
-    width: 100%;
-    margin-right: 20px;
-    border-radius: 50%;
-}
+    .questionView img {
+        float: left;
+        max-width: 60px;
+        width: 100%;
+        margin-right: 20px;
+        border-radius: 50%;
+    }
 
 .question {
     font-size: 0.5em;
@@ -120,15 +142,36 @@ html {
 }
 
 .askButton {
+    float: right;
     background-color: #1c6190;
     color: white;
     font-size: 1em;
-    border-radius: 2em;
+    border-radius: 5px;
     border: none;
     background-repeat: no-repeat;
     cursor: pointer;
     overflow: hidden;
     outline: none;
+    margin-left: 2em;
+    margin-right: 1em;
+    height: 2em;
+    width: 10em;
+}
+
+.ansButton {
+    float: right;
+    background-color: #1c6190;
+    color: white;
+    font-size: 1em;
+    border-radius: 5px;
+    border: none;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    height: 2.3em;
+    width: 10em;
+    margin-right: 1em;
 }
 
 .cardDescription {
@@ -153,17 +196,52 @@ html {
 }
 
 .cardContainer {
-    margin: 3em;
+    margin: 1em;
     display: grid;
-    padding: 1rem;
+    padding: 0.5rem;
     grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
     grid-gap: 3em;
 }
 
 .card:hover {
-    transform: scale(1.1);
+    /*transform: scale(1.1);
+    transition: all 500ms;*/
+    background-color: lightgray;
+    cursor: pointer;
 }
 
+.questionHeader {
+    background-color: lightgray;
+}
+
+.answerContainer {
+    margin-top: 2em;
+    display: inline-block;
+    width: 90%;
+    margin-left: 5em;
+    border-bottom: thin;
+}
+
+.answerView {
+    padding: 10px;
+    margin: 5px 0;
+}
+
+.spinner {
+    position: fixed;
+    z-index: 1031;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.answerView img {
+    float: left;
+    max-width: 60px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
+}
 
 @media (max-width: 800px) {
     .navbar {
@@ -175,7 +253,6 @@ html {
     .cardContainer {
         margin: 0.5em;
         display: grid;
-        padding: 1rem;
         grid-template-columns: repeat(auto-fill, minmax(100px, 3fr));
         grid-gap: 1em;
     }
@@ -202,17 +279,17 @@ html {
     }
 
     .searchText {
-        width: 13em;
-        height: 1.2em;
+        width: 10em;
+        height: 1.5em;
     }
 
-    .questionContainer {
+    .questionContainer, .answerContainer {
         display: inline-block;
         margin: 0.5em 0.5em;
         width: 95%;
     }
 
-    .questionView {
+    .questionView, .answerView {
         padding: 5px;
         margin: 5px 0;
         font-size: 1em;
@@ -233,33 +310,40 @@ html {
         color: #999;
         font-size: 0.5em;
     }
-    
-    .questionView img {
-        float: left;
-        max-width: 28px;
-        width: 100%;
-        margin-right: 5px;
-        border-radius: 50%;
-    }
 
     .askButton {
-        position: fixed;
-        bottom: 0;
-        right: 0;
-        margin-right: 10px;
-        margin-bottom: 20px;
+        margin-left: 1em;
+        height: 2.5em;
+        width: 8em;
+        font-size: 0.8em;
+    }
+
+    .domainAnswerBanner {
+        box-shadow: 0px 1px 5px #555;
+        background-color: #EEEEEE;
+        overflow: hidden;
+        width: auto;
+        display: block;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .ansButton {
+        float: right;
         background-color: #1c6190;
         color: white;
         font-size: 1em;
-        border-radius: 1em;
+        border-radius: 5px;
         border: none;
         background-repeat: no-repeat;
         cursor: pointer;
         overflow: hidden;
         outline: none;
-    }
-
-    .card:hover {
-        transform: none;
+        margin-left: 1em;
+        height: 2.5em;
+        width: 8em;
+        font-size: 0.8em;
+        margin-top: 0.2em;
+        margin-bottom: 0.5em;
     }
 }

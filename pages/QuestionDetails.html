@@ -1,0 +1,32 @@
+<div>
+    <div class="navbar">
+        <div class="topnav-left">
+            <a href="#Asked">Asked</a>
+        </div>
+        <div class="topnav-left">
+            <a href="#Answered">Answered</a>
+        </div>
+        <div class="topnav-right">
+            <a href="#Home">Dashboard</a>
+            <img async=on id="userProfilePic" src='../images/avatar.png' />
+        </div>
+    </div>
+    <div class="domainAnswerBanner" id="domainAnswerHeader">
+        <label class="domain" ng-cloak>Q: {{questionDetails.chatMsg}}</label>
+        <!--<label>{{questionDetails.chatBy}}</label>
+        <label>{{questionDetails.chatTime}}</label>-->
+        <button class="ansButton" ng-click="answerBtn()">Answer this Question</button>
+    </div>
+    <div class="spinner" id="spinner">
+        <img src="../images/spinner.gif" />
+    </div>
+    <!--Answer section-->
+    <div class="answerContainer">
+        <div class="answerView" data-ng-repeat="answer in answers" ng-cloak>
+            <img async=on src={{answer.commentProfile}} onerror="this.src='../images/avatar.png'" />
+            <p>{{answer.comment}}</p>
+            <span class="questionBy">{{answer.commentBy}}</span>
+            <span class="questionTime">{{answer.commentTime}}</span>
+        </div>
+    </div>
+</div>

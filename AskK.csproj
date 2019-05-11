@@ -48,22 +48,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="images\arts.jpg" />
-    <Content Include="images\ask.png" />
-    <Content Include="images\automobiles.jpg" />
+    <Content Include="askkServiceWorker.js" />
     <Content Include="images\avatar.png" />
-    <Content Include="images\basicloader.gif" />
     <Content Include="fonts\nevis.ttf" />
-    <Content Include="images\educational.jpg" />
-    <Content Include="images\electricalappliances.jpg" />
-    <Content Include="images\entertainment.jpg" />
-    <Content Include="images\fashion.jpg" />
-    <Content Include="images\food.jpg" />
-    <Content Include="images\health.jpg" />
-    <Content Include="images\background_image.jpg" />
-    <Content Include="images\informationtechnology.jpg" />
-    <Content Include="images\miscellaneous.jpg" />
+    <Content Include="images\background_image_home.jpg" />
+    <Content Include="images\favicon.png" />
+    <Content Include="images\logo_image.PNG" />
     <Content Include="images\search.jpg" />
+    <Content Include="images\spinner.gif" />
     <Content Include="packages.config" />
     <Content Include="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.4\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" />
     <Content Include="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.4\content\net45\web.config.install.xdt" />
@@ -141,16 +133,15 @@
     <Content Include="pages\Home.html" />
     <Content Include="pages\DomainDetails.html" />
     <Content Include="pages\Asked.html" />
-    <Content Include="pages\Domain.html" />
+    <Content Include="pages\Login.html" />
     <Content Include="pages\Profile.html" />
-    <Content Include="pages\QuestionsAsked.html" />
-    <Content Include="pages\QuestionsAnswered.html" />
+    <Content Include="pages\QuestionDetails.html" />
     <Content Include="scripts\askk.js" />
-    <Content Include="scripts\login.js" />
     <Content Include="scripts\odometer.min.js" />
     <Content Include="styles\login_styles.css" />
     <Content Include="styles\home_styles.css" />
     <Content Include="styles\odometer-theme-styles.css" />
+    <Content Include="styles\progress_bar_styles.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

@@ -1,14 +1,207 @@
 ﻿<div>
     <div class="navbar">
-        <div class="topnav-right">
-            <a href="#Domain">AskK</a>
-        </div>
-        <div class="subnav">
+        <div class="topnav-left">
             <a href="#Asked">Asked</a>
         </div>
-        <div class="subnav">
+        <div class="topnav-left">
             <a href="#Answered">Answered</a>
         </div>
+        <div class="topnav-right">
+            <a href="#Home">Dashboard</a>
+            <img async=on id="userProfilePic" src='../images/avatar.png' />
+        </div>
     </div>
-    <div ng-view></div>
+    <div class="homeHeader">
+        <div>Ask or Answer !! Choose any category to continue...</div>
+    </div>
+    <!--<div class="cardContainer">
+        <div class="card" ng-click="domainBtnclick(item)" ng-repeat="item in domainNames">
+            <div class="domainHeader">{{item}}</div>
+            <div class="cardDescription">Asked 100</div>
+            <div class="cardDescription">Answered 20</div>
+            <div class="cardDescription">
+                Post your questions here about <b>{{item}}</b>. Or answer the questions and help !!
+            </div>
+        </div>
+    </div>-->
+    <div>
+        <div class="cardContainer">
+            <div class="card" ng-click="domainBtnclick('Arts')">
+                <div class="domainHeader">
+                    Arts
+                </div>
+                <div class="progressBar">
+                    Answered Questions
+                    <div class="pbArts"></div>
+                </div>
+                <div class="cardDescription">
+                    Here, post or answer questions related to Singing, dancing, martial arts etc
+                </div>
+
+            </div>
+            <div class="card" ng-click="domainBtnclick('Automobiles')">
+                <div class="domainHeader">
+                    Automobiles
+                </div>
+                <div class="progressBar">
+                    Answered Questions
+                    <div class="pbAutomobiles"></div>
+                </div>
+                <div class="cardDescription">
+                    Here, post or answer questions related to engines, cars, models etc
+                </div>
+
+            </div>
+            <div class="card" ng-click="domainBtnclick('Education')">
+                <div class="domainHeader">
+                    Education
+                </div>
+                <div class="progressBar">
+                    Answered Questions
+                    <div class="pbEducation"></div>
+                </div>
+                <div class="cardDescription">
+                    Here, post or answer questions related to educational qualifications to pertain a job, etc
+                </div>
+
+            </div>
+            <div class="card" ng-click="domainBtnclick('Electrical Appliances')">
+                <div class="domainHeader">
+                    Electrical Appliances
+                </div>
+                <div class="progressBar">
+                    Answered Questions
+                    <div class="pbAppliances"></div>
+                </div>
+                <div class="cardDescription">
+                    Here, post or answer questions related to home appliances, electrical appliances
+                </div>
+
+            </div>
+            <div class="card" ng-click="domainBtnclick('Entertainment')">
+                <div class="domainHeader">
+                    Entertainment
+                </div>
+                <div class="progressBar">
+                    Answered Questions
+                    <div class="pbEntertainment"></div>
+                </div>
+                <div class="cardDescription">
+                    Here, post or answer questions related to movies, music, fun etc
+                </div>
+
+            </div>
+            <div class="card" ng-click="domainBtnclick('Fashion')">
+                <div class="domainHeader">
+                    Fashion
+                </div>
+                <div class="progressBar">
+                    Answered Questions
+                    <div class="pbFashion"></div>
+                </div>
+                <div class="cardDescription">
+                    Here, post or answer questions related to dresses, culture etc
+                </div>
+
+            </div>
+            <div class="card" ng-click="domainBtnclick('Food')">
+                <div class="domainHeader">
+                    Food
+                </div>
+                <div class="progressBar">
+                    Answered Questions
+                    <div class="pbFood"></div>
+                </div>
+                <div class="cardDescription">
+                    Here, post or answer questions related to food recipes, restaurants etc
+                </div>
+
+            </div>
+            <div class="card" ng-click="domainBtnclick('Health')">
+                <div class="domainHeader">
+                    Health
+                </div>
+                <div class="progressBar">
+                    Answered Questions
+                    <div class="pbHealth"></div>
+                </div>
+                <div class="cardDescription">
+                    Here, post or answer questions related to disease symptoms, remedies, doctors, hospitals
+                </div>
+
+            </div>
+            <div class="card" ng-click="domainBtnclick('Information Tech')">
+                <div class="domainHeader">
+                    Info Technology
+                </div>
+                <div class="progressBar">
+                    Answered Questions
+                    <div class="pbInfoTech"></div>
+                </div>
+                <div class="cardDescription">
+                    Here, post or answer questions related to various information technologies
+                </div>
+            </div>
+            <div class="card" ng-click="domainBtnclick('Photograhpy')">
+                <div class="domainHeader">
+                    Photograhpy
+                </div>
+                <div class="progressBar">
+                    Answered Questions
+                    <div class="pbPhoto"></div>
+                </div>
+                <div class="cardDescription">
+                    Here, post or answer questions related to techniques in Photography
+                </div>
+            </div>
+            <div class="card" ng-click="domainBtnclick('Smart Devices')">
+                <div class="domainHeader">
+                    Smart Devices
+                </div>
+                <div class="progressBar">
+                    Answered Questions
+                    <div class="pbSDevices"></div>
+                </div>
+                <div class="cardDescription">
+                    Here, post or answer questions related to Smart Devices such as Drones, IOT devices, smart home etc
+                </div>
+            </div>
+            <div class="card" ng-click="domainBtnclick('Sports')">
+                <div class="domainHeader">
+                    Sports
+                </div>
+                <div class="progressBar">
+                    Answered Questions
+                    <div class="pbSports"></div>
+                </div>
+                <div class="cardDescription">
+                    Here, post or answer questions related to all kinds of sports
+                </div>
+            </div>
+            <div class="card" ng-click="domainBtnclick('Others')">
+                <div class="domainHeader">
+                    Others
+                </div>
+                <div class="progressBar">
+                    Answered Questions
+                    <div class="pbOthers"></div>
+                </div>
+                <div class="cardDescription">
+                    Here, post or answer questions related to other areas which are not there in above categories
+                </div>
+            </div>
+            <div class="card" ng-click="domainBtnclick('Travel')">
+                <div class="domainHeader">
+                    Travel
+                </div>
+                <div class="progressBar">
+                    Answered Questions
+                    <div class="pbTravel"></div>
+                </div>
+                <div class="cardDescription">
+                    Here, post or answer questions related to travel, destinations & transport options
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

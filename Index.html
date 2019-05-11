@@ -1,35 +1,24 @@
 ﻿<!doctype html>
 <html ng-app="AskApp">
-<title>AskK</title>
+<title>AskkK</title>
 <head>
-    <base href="/" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://code.angularjs.org/1.6.1/angular.min.js"></script>
     <script src="https://code.angularjs.org/1.6.1/angular-route.min.js"></script>
     <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase.js"></script>
-    <script src="scripts/odometer.min.js"></script>
     <link href="styles/odometer-theme-styles.css" rel="stylesheet" />
+    <script src="scripts/odometer.min.js"></script>
     <script src="scripts/askk.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles/home_styles.css" />
+    <link rel="stylesheet" type="text/css" href="styles/progress_bar_styles.css" />
     <link rel="stylesheet" type="text/css" href="styles/login_styles.css" />
-    <link rel="stylesheet" type="text/css" href="styles/login_styles.css" />
+    <link rel="icon" href="images/favicon.png" type="image/x-icon">
 </head>
 <body>
-    <div class="intro">
-        <h2>AskK</h2>
-        <p>Sharing made simple with AskK, Ask or answer the questions and help people</p>
-    </div>
-    <hr />
-    <div class="dataHeader">
-        <div id="askedQuestions" class="odometer">100</div>Asked
-        <div id="answeredQuestions" class="odometer">100</div>Answered
-    </div>
-    <div class="loginBtnWrapper">
-        <button class="loginBtn" ng-controller="loginController" ng-app="Askk" ng-click="onSignIn()">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
-            SignIn with Google
-        </button>
-    </div>
+    <div ng-view></div>
 </body>
 </html>

@@ -1,0 +1,16 @@
+﻿.pbEducation, .pbAppliances, .pbArts, .pbAutomobiles, .pbEntertainment, .pbFashion, .pbFood, .pbHealth, .pbInfoTech, .pbOthers, .pbPhoto, .pbSDevices, .pbSports, .pbTravel {
+    height: 1em;
+    background: purple;
+    width: 0;
+    text-align: center;
+    color: white;
+}
+
+.progressBar {
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+@media (max-width: 800px) {
+    
+}
