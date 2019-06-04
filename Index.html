@@ -3,6 +3,7 @@
 <title>AskkK</title>
 <head>
     <meta charset="UTF-8" />
+    <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://code.angularjs.org/1.6.1/angular.min.js"></script>
     <script src="https://code.angularjs.org/1.6.1/angular-route.min.js"></script>
@@ -10,15 +11,59 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase.js"></script>
-    <link href="styles/odometer-theme-styles.css" rel="stylesheet" />
     <script src="scripts/odometer.min.js"></script>
     <script src="scripts/askk.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles/feedback_styles.css"/>
     <link rel="stylesheet" type="text/css" href="styles/home_styles.css" />
     <link rel="stylesheet" type="text/css" href="styles/progress_bar_styles.css" />
+    <link rel="stylesheet" type="text/css" href="styles/odometer-theme-styles.css" />
     <link rel="stylesheet" type="text/css" href="styles/login_styles.css" />
-    <link rel="icon" href="images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="images/askkk_logo.png" type="image/x-icon">
+    <script>
+        function openNav() {
+            document.getElementById("sidenavlist").style.width = "5em";
+        }
+        function closeNav() {
+            document.getElementById("sidenavlist").style.width = "0";
+        }
+    </script>
 </head>
 <body>
+    <div class="navbar" id="navbar">
+        <div class="listBtn">
+            <div onclick="openNav()">&#9776;</div>
+            <div id="sidenavlist" class="sidenavlist">
+                <a href="javascript:void(0)" onclick="closeNav()">&times;</a>
+                <a href="Home">Home</a>
+                <a href="Asked">Asked</a>
+                <a href="Answered">Answered</a>
+                <a href="ContactUs">ContactUs</a>
+            </div>
+        </div>
+        <div class="logoBtn">
+            <img src="images/askkk_logo.png" />
+        </div>
+        <div class="topnav-left">
+            <a href="Home">Home</a>
+        </div>
+        <div class="topnav-left">
+            <a href="Asked">Asked</a>
+        </div>
+        <div class="topnav-left">
+            <a href="Answered">Answered</a>
+        </div>
+        <div class="topnav-left">
+            <a href="ContactUs">ContactUs</a>
+        </div>
+        <div id="searchBtnHolder" class="searchBtnHolder">
+            <span><img src="images/search.png" /></span>
+            <span><input class="searchText" id="searchText" placeholder="Search here..." /></span>
+        </div>
+        <a class="profileBtn" href="Login">
+            <img async=on id="userProfilePic" src="images/avatar.png" />
+            <!--<a href="Answered">Notifications</a>-->
+        </a>
+    </div>
     <div ng-view></div>
 </body>
 </html>

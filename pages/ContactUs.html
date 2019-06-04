@@ -1,0 +1,22 @@
+﻿<div>
+    <div class="intro">
+        <!--<img src="../images/askkk_logo.png" />-->
+        <p class="introSubHeader">Sharing made simple with AskK, Ask or answer the questions and help people</p>
+    </div>
+    <hr />
+    <div class="dataHeader">
+        <span>Asked</span><span id="askedQuestions" class="odometer">0</span>
+        <span>Answered</span><span id="answeredQuestions" class="odometer">0</span>
+    </div>
+    <div class="feedbackHeader">Leave your feedback here</div>
+    <div class="feedbackHolder">
+        <form ng-submit="submit()" name="formSubmit">
+            <textarea class="comments" placeholder="Comments *" required type="text" ng-model="feedback" rows="10" cols="20"></textarea>
+            <input class="name" placeholder="Name *" type="text" required ng-model="custName" />
+            <input class="email" placeholder="Email id *" required type="email" ng-model="custEmail" />
+            <input class="phonenumber" placeholder="Phone Number" type="number" ng-model="custPhone" maxlength="10" />
+            <label class="successmsg">{{successmessage}}</label>
+            <Button class="feedbackbtn" type="submit" ng-disabled="isDisabled">Submit</Button>
+        </form>
+    </div>
+</div>

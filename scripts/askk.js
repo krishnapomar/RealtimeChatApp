@@ -1,7 +1,7 @@
 var myApp = angular.module("AskApp", ['ngRoute', 'firebase']);
 
-// Initialize Firebase
 var config = {
+// Initialize Firebase
     apiKey: "AIzaSyCvDZ3eiYahjMyLo_LsBYVz1PcdzWxZyw0",
     authDomain: "askk-me.firebaseapp.com",
     databaseURL: "https://askk-me.firebaseio.com",
@@ -12,11 +12,16 @@ var config = {
 
 firebase.initializeApp(config);
 
-myApp.config(function ($routeProvider) {
+myApp.config(function ($routeProvider, $locationProvider) {
+    $locationProvider.html5Mode({
+        enabled: true,
+        requireBase: false
+    });
+
     $routeProvider
         .when('/', {
-            templateUrl: 'pages/Login.html',
-            controller: 'loginController'
+            templateUrl: 'pages/Home.html',
+            controller: 'homeController'
         })
 
         .when('/Home', {
@@ -29,16 +34,6 @@ myApp.config(function ($routeProvider) {
             controller: 'loginController'
         })
 
-        .when('/DomainDetails/:domainName', {
-            templateUrl: 'pages/DomainDetails.html',
-            controller: 'domainController'
-        })
-
-        .when('/QuestionDetails/:domainName/:questionKey', {
-            templateUrl: 'pages/QuestionDetails.html',
-            controller: 'questionController'
-        })
-
         .when('/Asked', {
             templateUrl: 'pages/Asked.html',
             controller: 'askedController'
@@ -49,15 +44,26 @@ myApp.config(function ($routeProvider) {
             controller: 'answeredController'
         })
 
+        .when('/ContactUs', {
+            templateUrl: 'pages/ContactUs.html',
+            controller: 'contactUsController'
+        })
+
+        .when('/questions/:domainName', {
+            templateUrl: 'pages/DomainDetails.html',
+            controller: 'domainController'
+        })
+
+        .when('/questions/:domainName/:questionKey', {
+            templateUrl: 'pages/QuestionDetails.html',
+            controller: 'questionController'
+        })
+
         //.otherwise({
         //    templateUrl: 'Index.html',
         //    controller: 'loginController'
         //});
 });
-
-myApp.config(['$locationProvider', function ($locationProvider) {
-    $locationProvider.hashPrefix('');
-}]);
 
 angular.module('AskApp')
     .config(function ($httpProvider, $httpParamSerializerJQLikeProvider) {
@@ -68,50 +74,50 @@ angular.module('AskApp')
 myApp.controller("homeController", function ($scope, $window) {
     console.log("Inside homeController controller");
 
-    var profilePic = sessionStorage.getItem("profilePic");
-
-    $("#userProfilePic").attr("src", profilePic);
-    
-    //askUserPermission();
-
-    $('body').css('background-image', 'none');
-    $('#introDetails').css('display', 'none');
-
-    //$scope.domainNames = ["Arts", "Automobiles", "Educational", "Electrical Appliances", "Entertainment",
-    //    "Fashion", "Food", "Health", "Information Tech", "Photograhpy", "Smart Devices", "Sports", "Others"];
-
+    onPageLoad("home");
     pbAnimate();
 
     $scope.domainBtnclick = function (item) {
-        $window.location.href = "#/DomainDetails/"+item;
+        $window.location.href = "/questions/" + item;
     };
 });
 
 myApp.controller("domainController", function ($scope, $routeParams, $firebaseArray, $window) {
     console.log("Inside Domain controller");
 
-    var profilePic = sessionStorage.getItem("profilePic");
-    $("#userProfilePic").attr("src", profilePic);
-
+    onPageLoad("domain");
     var domainName = $routeParams.domainName;
+    var finalQuestions = [];
     $('#spinner').show();
-    $('body').css('background-color', 'lightgray');
+    $('#domainSelect').val(domainName);
 
-    $scope.selectedDomain = domainName;
     var dbRef = firebase.database().ref().child('DomainNames').child(domainName);
     $scope.questions = $firebaseArray(dbRef);
-    
+
+    $('#domainSelect').on('change', function () {
+        $window.location.href = "/questions/" + this.value;
+    });
+
+    $('#searchText').on('input', function () {
+        var newContent = [];
+        finalQuestions.forEach(function ($question) {
+            if ($question.chatMsg.toLowerCase().includes($('#searchText').val().toLowerCase())) {
+                newContent.push($question);
+            }
+        });
+        console.log(newContent);
+        $scope.questions = newContent;
+        $scope.$apply();
+    });
+
     $scope.questions.$loaded().finally(function () {
         $('#spinner').hide();
-        $('body').css('background-color', 'white');
+        finalQuestions = $scope.questions;
     });
     
     $scope.selectQuestion = function (q) {
         var questionId = q.$id.replace('-', '');
-        //sessionStorage.setItem("question", q.chatMsg);
-        //sessionStorage.setItem("postedBy", q.chatBy);
-        //sessionStorage.setItem("postedTime", q.chatTime);
-        $window.location.href = "#/QuestionDetails/" + domainName + "/" + questionId;
+        $window.location.href = "/questions/" + domainName + "/" + questionId;
     };
 
     $scope.askQuestion = function () {
@@ -131,31 +137,25 @@ myApp.controller("domainController", function ($scope, $routeParams, $firebaseAr
             }
         }
         else {
-            $window.location.href = "#/Login";
+            $window.location.href = "/Login";
         }
     };
 });
 
-myApp.controller("questionController", function ($scope, $routeParams, $firebaseObject, $window) {
+myApp.controller("questionController", function ($scope, $routeParams, $firebaseArray, $firebaseObject, $window) {
     console.log("Inside questionController controller");
 
-    var profilePic = sessionStorage.getItem("profilePic");
-    $('#domainAnswerHeader').hide();
-    $("#userProfilePic").attr("src", profilePic);
+    onPageLoad("question");
     $('#spinner').show();
-    $('body').css('background-color', 'lightgray');
-
+    
     var dbQuestionRef = firebase.database().ref().child('DomainNames').child($routeParams.domainName).child('-' + $routeParams.questionKey);
     $scope.questionDetails = $firebaseObject(dbQuestionRef);
-    console.log($scope.questionDetails);
-
+    
     var dbCommentsRef = firebase.database().ref().child('DomainNames').child($routeParams.domainName).child('-' + $routeParams.questionKey).child('comments');
-    $scope.answers = $firebaseObject(dbCommentsRef);
+    $scope.answers = $firebaseArray(dbCommentsRef);
 
     $scope.answers.$loaded().finally(function () {
         $('#spinner').hide();
-        $('#domainAnswerHeader').show();
-        $('body').css('background-color', 'white');
     });
 
     $scope.answerBtn = function () {
@@ -176,26 +176,50 @@ myApp.controller("questionController", function ($scope, $routeParams, $firebase
             }
         }
         else {
-            $window.location.href = "#/Login";
+            $window.location.href = "/Login";
+            $('#spinner').show();
         }
     };
+
+    //$scope.answers.$watch(function (e) {
+        //    if (e.event == "child_added") {
+        //        console.log('Something changed');
+        //        e.key
+        //    }        
+        //    console.log(e);
+        //});
+
+    //$scope.likeBtn = function ($answerID) {
+    //    console.log("Inside Like btn method");
+    //    var likes = dbCommentsRef.child($answerID).getItem('likes').val();
+    //    likes = likes+1;
+    //    dbCommentsRef.child($answerID).setItem('l   ikes', likes);
+    //}
 });
 
 myApp.controller("askedController", function ($scope, $window) {
     console.log("Inside askedController controller");
 
-    $scope.loggedUserProfilePic = sessionStorage.getItem("profilePic");
+    onPageLoad("asked");
 });
 
 myApp.controller("answeredController", function ($scope, $window) {
     console.log("Inside answeredController controller");
-
-    $scope.loggedUserProfilePic = sessionStorage.getItem("profilePic");
+    
+    onPageLoad("answered");
 });
 
-myApp.controller("loginController", function ($scope, $window) {
-    console.log("Inside login controller");
-    
+myApp.controller("profileController", function ($scope, $window) {
+    console.log("Inside profileController controller");
+
+    onPageLoad("profile");
+});
+
+myApp.controller("contactUsController", function ($scope, $window) {
+    console.log("Inside contactUsController controller");
+
+    onPageLoad("contact");
+
     setTimeout(function () {
         askedQuestions.innerHTML = 124;
     }, 1000);
@@ -204,13 +228,62 @@ myApp.controller("loginController", function ($scope, $window) {
         answeredQuestions.innerHTML = 23;
     }, 1000);
 
+    $scope.isDisabled = false;
+    $scope.focus = true;
+    $scope.submit = function () {
+        $scope.isDisabled = false;
+        var dbFeedbackRef = firebase.database().ref().child('Feedback');
+        var phoneNumber;
+        if ($scope.custPhone) {
+            phoneNumber = $scope.custPhone;
+        }
+        else {
+            phoneNumber = "0000000000";
+        }
+        dbFeedbackRef.push({
+            feedback: $scope.feedback,
+            by: $scope.custName,
+            email: $scope.custEmail,
+            phone: phoneNumber,
+            time: new Date().toLocaleDateString()
+        });
+
+        $scope.isDisabled = false;
+        $scope.errormsg = null;
+        $scope.custEmail = null;
+        $scope.custName = null;
+        $scope.custPhone = null;
+        $scope.feedback = null;
+        $scope.successmessage = "Thank you for your feedback !!!"
+    };
+});
+
+myApp.controller("loginController", function ($scope, $window) {
+    console.log("Inside login controller");
+
+    onPageLoad("login");
+    $('#errorMessage').hide();
+    
+    var token = sessionStorage.getItem("googleToken");
+    if (!token) {
+        $('#signOut').css('display', 'none');
+    }
+    else {
+        $('#signIn').css('display', 'none');
+    }
+
     $scope.onSignIn = function () {
-        var token = sessionStorage.getItem("googleToken");
         if (!token) {
             googleSignIn($window);
         }
         else {
-            $window.location.href = "#/Home";
+            $window.location.href = "/Home";
+        }
+    };
+
+    $scope.onSignOut = function () {
+        if (token) {
+            googleSignOut($window);
         }
     };
 });
@@ -218,15 +291,47 @@ myApp.controller("loginController", function ($scope, $window) {
 async function googleSignIn($window) {
     var provider = new firebase.auth.GoogleAuthProvider();
     await firebase.auth().signInWithPopup(provider).then(function (result) {
+        console.log("Sign in successfull !!");
         sessionStorage.setItem("googleToken", result.credential.accessToken);
         sessionStorage.setItem("user", result.user.displayName);
         sessionStorage.setItem("profilePic", result.user.photoURL);
         sessionStorage.setItem("email", result.user.email);
-        $window.location.href = "#/Home";
+        $window.location.href = "/Home";
     }).catch(function (error) {
         var errorMessage = error.message;
+        $('#errorMessage').show();
         console.log(errorMessage);
     });
+}
+
+async function googleSignOut($window) {
+    await firebase.auth().signOut().then(function () {
+        $window.location.href = "/Home";
+        console.log("Signed out successfully !!");
+        sessionStorage.removeItem("googleToken");
+        sessionStorage.removeItem("user");
+        sessionStorage.removeItem("profilePic");
+        sessionStorage.removeItem("email");
+        // Sign-out successful.
+    }).catch(function (error) {
+        console.log(error.message);
+        // An error happened.
+    });
+}
+
+function onPageLoad($page) {
+    closeNav();
+    if ($page == "domain") {
+        $("#searchBtnHolder").show();
+    }
+    else {
+        $("#searchBtnHolder").hide();
+    }
+    
+    var profilePic = sessionStorage.getItem("profilePic")
+    if (profilePic) {
+        $("#userProfilePic").attr("src", profilePic);
+    }
 }
 
 function pbAnimate() {
