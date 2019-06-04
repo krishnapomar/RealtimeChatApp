@@ -2,15 +2,17 @@
     <div class="spinner" id="spinner">
         <img src="../images/spinner.gif" />
     </div>
-    <div class="domainAnswerBanner" id="domainAnswerHeader">
-        <label class="domain" ng-cloak>Q: {{questionDetails.chatMsg}}</label>
-        <!--<label>{{questionDetails.chatBy}}</label>
-        <label>{{questionDetails.chatTime}}</label>-->
-        <button class="ansButton" ng-click="answerBtn()">Answer this Question</button>
+    <div class="domainAnswerBanner" id="domainAnswerBanner">
+        <img async=on src={{questionDetails.chatProfilePic}} onerror="this.src='../images/avatar.png'" />
+        <p>{{questionDetails.chatMsg}}</p>
+        <span class="questionDetailBy">{{questionDetails.chatBy}}</span>
+        <span><button class="ansButton" ng-click="answerBtn()">Answer this Question</button></span>
+        <span class="questionDetailTime">{{questionDetails.chatTime}}</span>
     </div>
+    <div class="seperator"></div>
     <!--Answer section-->
-    <div class="answerContainer">
-        <div class="answerView" data-ng-repeat="answer in answers" ng-cloak>
+    <div class="questionContainer">
+        <div class="questionView" data-ng-repeat="answer in answers" ng-cloak>
             <img async=on src={{answer.commentProfile}} onerror="this.src='../images/avatar.png'" />
             <p>{{answer.comment}}</p>
             <span class="questionBy">{{answer.commentBy}}</span>

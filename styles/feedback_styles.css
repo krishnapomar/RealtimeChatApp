@@ -1,0 +1,116 @@
+﻿body {
+    font-family: 'nevisbold';
+}
+
+.name, .email, .phonenumber {
+    margin-left: 0.5em;
+    margin-top: 0.5em;
+    font-size: 1em;
+    outline: none;
+    width: 29em;
+    border: none;
+    border-bottom-width: 0.1em;
+    border-bottom-style: groove;
+    text-align: center;
+    border-bottom-color: #1c6190;
+}
+
+.feedbackHolder {
+    border-radius: 2px;
+    border-color: #1c6190;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 30em;
+    height: 22em;
+    background-color: white;
+}
+
+.feedbackHeader {
+    margin: 1em;
+    font-size: 1em;
+    text-align: center;
+}
+
+.successmsg {
+    margin-top: 0.5em;
+    font-size: 1em;
+    text-align: center;
+    display: block;
+    width: auto;
+    float: none;
+    color: #1c6190;
+}
+
+.comments {
+    width: 34em;
+    font-size: 1em;
+    background-color: transparent;
+    border-color: #1c6190;
+    border-style: solid;
+    color: black;
+    text-align: center;
+    margin: 1em;
+    display: inline;
+    float: none;
+}
+
+.feedbackbtn {
+    margin-top: 2em;
+    background-color: #1c6190;
+    color: white;
+    font-size: 1em;
+    border-radius: 5px;
+    border: none;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    float: right;
+    margin-right: 0.25em;
+    width: 5em;
+    margin-bottom: 0.25em;
+}
+
+.dataHeader {
+    text-align: center;
+    font-size: 2rem;
+    color: black;
+}
+
+.intro {
+    margin-top: 5em;
+    text-align: center;
+    color: #1c6190;
+}
+
+.intro img {
+    max-height: 50px;
+    max-width: 150px;
+    border-radius: 0.5em;
+}
+
+.introSubHeader {
+    text-align: center;
+    color: #1c6190;
+}
+
+@media (max-width: 800px) {
+    .name, .email, .phonenumber {
+        width: 14em;
+    }
+
+    .comments {
+        width: 16em;
+    }
+    .dataHeader {
+        margin-top: 2.5rem;
+        text-align: center;
+        font-size: 1rem;
+    }
+
+    .feedbackHolder{
+        width: 15em;
+    }
+}

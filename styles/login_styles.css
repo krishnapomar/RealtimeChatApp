@@ -1,43 +1,14 @@
-.background {
-    background-image: url("../images/background_image_home.jpg");
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    height: 100%;
-    position: fixed;
-    top: 0px;
-    bottom: 0px;
-    right: 0px;
-    left: 0px;
-}
-
-.dataHeader {
-    margin-top: 5rem;
-    text-align: center;
-    font-size: 2rem;
-    color: lightyellow;
-}
-
-.intro {
-    margin-top: 2em;
-    text-align: center;
-    color: #1c6190;
-}
-
-.intro img {
-    max-height: 100px;
-    max-width: 150px;
-    border-radius: 0.5em;
-}
-
-.introSubHeader {
-    text-align: center;
-    color: black;
-}
-
 .loginHeader {
     margin-top: 5em;
     text-align: center;
     color: #1c6190;
+    font-weight: bold;
+}
+
+.errorMessage {
+    margin-top: 5em;
+    text-align: center;
+    color: darkred;
 }
 
 .loginBtnWrapper {
@@ -46,7 +17,7 @@
 
 .loginBtn {
     margin: auto;
-    display: block;
+    display: flex;
     background-color: white;
     color: #1c6190;
     font-size: 1em;
@@ -58,12 +29,12 @@
     box-shadow: 0px 1px 5px #C0C0C0;
     text-align: center;
     border-radius: 5px;
+    align-items: center;
 }
 
 .loginBtn:visited {
     background-color: #1c6190;
-    color: white;
-        
+    color: white;        
 }
 
 .loginBtn:focus {
@@ -87,10 +58,11 @@
 }
 
 .odometer {
-    font-size: 3rem;
+    font-size: 2.5rem;
     text-align: right;
-    color: black;
+    color: #1c6190;
     width: 5em;
+    margin-left: 0.25em;
 }
 
 hr {
@@ -102,15 +74,7 @@ hr {
     width: 30em;
 }
 
-
 @media (max-width: 800px) {
-    .dataHeader {
-        margin-top: 2.5rem;
-        text-align: center;
-        font-size: 2rem;
-        color: lightyellow;
-    }
-
     hr {
         border: thick;
         border-top: 1px solid;

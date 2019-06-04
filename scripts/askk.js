@@ -105,7 +105,6 @@ myApp.controller("domainController", function ($scope, $routeParams, $firebaseAr
                 newContent.push($question);
             }
         });
-        console.log(newContent);
         $scope.questions = newContent;
         $scope.$apply();
     });
@@ -117,6 +116,7 @@ myApp.controller("domainController", function ($scope, $routeParams, $firebaseAr
     
     $scope.selectQuestion = function (q) {
         var questionId = q.$id.replace('-', '');
+        console.log(q.chatProfilePic);
         $window.location.href = "/questions/" + domainName + "/" + questionId;
     };
 
@@ -141,12 +141,13 @@ myApp.controller("domainController", function ($scope, $routeParams, $firebaseAr
         }
     };
 });
-
+ 
 myApp.controller("questionController", function ($scope, $routeParams, $firebaseArray, $firebaseObject, $window) {
     console.log("Inside questionController controller");
 
     onPageLoad("question");
     $('#spinner').show();
+    $('#domainAnswerBanner').hide();
     
     var dbQuestionRef = firebase.database().ref().child('DomainNames').child($routeParams.domainName).child('-' + $routeParams.questionKey);
     $scope.questionDetails = $firebaseObject(dbQuestionRef);
@@ -156,6 +157,7 @@ myApp.controller("questionController", function ($scope, $routeParams, $firebase
 
     $scope.answers.$loaded().finally(function () {
         $('#spinner').hide();
+        $('#domainAnswerBanner').show();
     });
 
     $scope.answerBtn = function () {
