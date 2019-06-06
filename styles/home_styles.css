@@ -29,6 +29,7 @@ body {
     align-items: center;
     box-shadow: 0px 1px 3px #555;
     position: fixed;
+    z-index: 1;
 }
 
 .navbar a {
@@ -126,7 +127,7 @@ body {
     cursor: pointer;
 }
 
-.profileBtn:hover, .profileBtn:active, .profileBtn:focus {
+.profileBtn:hover, .profileBtn:active, .profileBtn:focus{
     border-bottom: none !important;
 }
 
@@ -181,11 +182,12 @@ body {
 
 .domainAnswerBanner {
     margin-top: 3em;
-    display: inline-block;
+    position: relative;
     padding-left: 1em;
     padding-top: 1em;
-    padding-bottom: 0.5em;
+    padding-bottom: 2.5em;
     width: 100%;
+    z-index: auto;
 }
 
 .domainAnswerBanner img {
@@ -193,12 +195,22 @@ body {
     max-width: 60px;
     width: 100%;
     height: auto;
-    margin-right: 20px;
+    margin-right: 1em;
+    margin-top: 0.5em;
     border-radius: 50%;
 }
 
+.questionDetail {
+    margin: 1em;
+}
+
+.answerDetail {
+    margin: 2em;
+    color: white;
+}
+
 .seperator {
-    border-bottom-width: 0.1em;
+    border-bottom-width: 0.2em;
     border-bottom-style: groove;
     width: 100%;
 }
@@ -207,16 +219,28 @@ body {
     float: left;
     color: #999;
     font-size: 0.8em;
-    margin-left: 1em;
     margin-top: 0.5em;
 }
 
+.rightArrow{
+    position: absolute;
+    top: 30%;
+    right: 0px;
+}
+
+.rightArrow img{
+    width: 23px;
+    height: 23px;
+}
+
 .questionDetailTime {
-    float: right;
     color: #999;
-    margin-right: 2em;
     font-size: 0.8em;
-    margin-top: 0.5em;
+    position: absolute;
+    top: 0px;
+    margin-top: 1.5em;
+    margin-right: 3em;
+    right: 0px;
 }
 
 .domainDropdownHolder {
@@ -280,14 +304,23 @@ body {
     width: 90%;
 }
 
-.questionView {
-    border-width: 0.1em;
-    border-style: groove;
-    border-radius: 1em;
-    padding: 10px;
+.answerContainer {
+    display: inline-block;
+    margin-left: 5em;
+    margin-top: 1em;
+    width: 90%;
 }
 
-.questionView::after {
+.questionView {
+    position: relative;
+    border-radius: 1em;
+    padding: 10px;
+    box-shadow: 0px 1px 3px #555;
+    margin-bottom: 0.5em;
+    z-index: auto;
+}
+
+.questionView::after, .answerView::after {
     content: "";
     clear: both;
     display: table;
@@ -299,12 +332,29 @@ body {
     border-radius: 1em;
 }
 
-.questionView img {
+.answerView {
+    position: relative;
+    border-radius: 1em;
+    padding: 10px;
+    margin-bottom: 0.5em;
+    background-color: #1c6190;
+}
+
+.chatTail {
+    position: absolute;
+    margin-left: -24px;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 12px solid #1c6190;
+    transform: rotate(45deg);
+}
+
+.profilePic img {
     float: left;
     max-width: 60px;
     width: 100%;
-    height:auto;
-    margin-right: 20px;
+    height: auto;
+    margin-right: 5px;
     border-radius: 50%;
 }
 
@@ -318,9 +368,21 @@ body {
     font-size: 0.8em;
 }
 
+.answerBy {
+    float: right;
+    color: white;
+    font-size: 0.8em;
+}
+
 .questionTime {
     float: left;
     color: #999;
+    font-size: 0.8em;
+}
+
+.answerTime {
+    float: left;
+    color: white;
     font-size: 0.8em;
 }
 
@@ -332,15 +394,21 @@ body {
 }
 
 .likeBtn {
-    float: right;
-    top: 0;
-    right: 0;
-    color: #999;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    margin-top: 1.5em;
+    margin-right: 1em;
 }
 
 .likeBtn img {
-    width: 14px;
+    width: 24px;
     height: 24px;
+}
+
+.likeBtn img:active {
+    width: 28px;
+    height: 28px;
 }
 
 .askButton {
@@ -477,20 +545,26 @@ spinner img{
         justify-content: flex-start;
     }
 
-    .questionContainer {
+    .questionContainer, .answerContainer {
         display: inline-block;
         font-size: 0.8em;
         margin: 0.5em 0.5em;
         width: 95%;
     }
 
-    .questionView {
+    .answerContainer {
+        display: inline-block;
+        font-size: 0.8em;
+        margin-left: 2em;
+        margin-right: 2em;
+        width: 90%;
+    }
+       
+    .questionView, .answerView {
         font-size: 1em;
     }
 
-    .questionBy {
-        float: right;
-        color: #999;
+    .questionBy, .answerBy {
         font-size: 0.5em;
     }
 
@@ -498,9 +572,7 @@ spinner img{
         font-size: 0.5em;
     }
 
-    .questionTime {
-        float: left;
-        color: #999;
+    .questionTime, .answerTime {
         font-size: 0.5em;
     }
 
@@ -548,9 +620,17 @@ spinner img{
     .ansButton {
         font-size: 0.8em;
         margin-right: 0.5em;
+        height: auto;
     }
 
-    .domainAnswerBanner{
-        width: auto;
+    .domainAnswerBanner {
+        margin-top: 4em;
+        width: 90%;
+        font-size: 0.8em;
+    }
+
+    .questionDetailTime {
+        margin-top: 1em;
+        margin-right: 1em;
     }
 }

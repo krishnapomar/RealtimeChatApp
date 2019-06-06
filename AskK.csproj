@@ -54,7 +54,6 @@
     <Content Include="images\askkk_logo.png" />
     <Content Include="images\automobiles.png" />
     <Content Include="images\avatar.png" />
-    <Content Include="images\background_image_home.jpg" />
     <Content Include="images\educational.png" />
     <Content Include="images\electricalappliances.png" />
     <Content Include="images\entertainment.png" />
@@ -65,9 +64,9 @@
     <Content Include="images\homeappliances.png" />
     <Content Include="images\informationtechnology.png" />
     <Content Include="images\like_btn.png" />
-    <Content Include="images\logo_image.PNG" />
     <Content Include="images\others.png" />
     <Content Include="images\photography.png" />
+    <Content Include="images\right_arrow.png" />
     <Content Include="images\search.png" />
     <Content Include="images\smartdevices.png" />
     <Content Include="images\spinner.gif" />

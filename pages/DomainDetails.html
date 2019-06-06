@@ -30,10 +30,11 @@
     </div>
     <div class="questionContainer">
         <div class="questionView" data-ng-repeat="q in questions" ng-click="selectQuestion(q)">
-            <img async=on src={{q.chatProfilePic}} onerror="this.src='../images/avatar.png'" />
-            <p>{{q.chatMsg}}</p>
+            <div class="profilePic"><img async=on src={{q.chatProfilePic}} onerror="this.src='../images/avatar.png'" /></div>
+            <p class="questionDetail">{{q.chatMsg}}</p>
             <span class="questionBy">{{q.chatBy}}</span>
             <span class="questionTime">{{q.chatTime}}</span>
+            <div class="rightArrow"><img src="../images/right_arrow.png" /></div>
         </div>
     </div>
 </div>
