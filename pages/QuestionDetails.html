@@ -3,7 +3,7 @@
         <img src="../images/spinner.gif" />
     </div>
     <div class="domainAnswerBanner" id="domainAnswerBanner">
-        <img async=on src={{questionDetails.chatProfilePic}} onerror="this.src='../images/avatar.png'" />
+        <img async=on ng-src={{questionDetails.chatProfilePic}} onerror="this.src='../images/avatar.png'" />
         <p class="questionDetail">{{questionDetails.chatMsg}}</p>
         <span class="questionDetailBy">{{questionDetails.chatBy}}</span>
         <span><button class="ansButton" ng-click="answerBtn()">Answer this Question</button></span>
@@ -12,13 +12,15 @@
     <div class="seperator"></div>
     <!--Answer section-->
     <div class="answerContainer">
-        <div class="answerView" data-ng-repeat="answer in answers" ng-cloak>
+        <div data-ng-repeat="answer in answers" ng-cloak>
+            <div class="ansProfilePic"><img async=on ng-src={{answer.commentProfile}} onerror="this.src='../images/avatar.png'" /></div>
             <div class="chatTail"></div>
-            <div class="profilePic"><img async=on src={{answer.commentProfile}} onerror="this.src='../images/avatar.png'" /></div>
-            <p class="answerDetail">{{answer.comment}}</p>
-            <span class="answerBy">{{answer.commentBy}}</span>
-            <span class="answerTime">{{answer.commentTime}}</span>
-            <span class="likeBtn"><img src="../images/like_btn.png" /></span>
+            <div class="answerView">
+                <p class="answerDetail">{{answer.comment}}</p>
+                <span class="answerBy">{{answer.commentBy}}</span>
+                <span class="answerTime">{{answer.commentTime}}</span>
+                <span class="likeBtn"><img src="../images/like_btn.png" /></span>
+            </div>
         </div>
     </div>
 </div>

@@ -90,10 +90,10 @@ myApp.controller("domainController", function ($scope, $routeParams, $firebaseAr
     var finalQuestions = [];
     $('#spinner').show();
     $('#domainSelect').val(domainName);
-
+    
     var dbRef = firebase.database().ref().child('DomainNames').child(domainName);
     $scope.questions = $firebaseArray(dbRef);
-
+    console.log($scope.questions);
     $('#domainSelect').on('change', function () {
         $window.location.href = "/questions/" + this.value;
     });
@@ -116,7 +116,6 @@ myApp.controller("domainController", function ($scope, $routeParams, $firebaseAr
     
     $scope.selectQuestion = function (q) {
         var questionId = q.$id.replace('-', '');
-        console.log(q.chatProfilePic);
         $window.location.href = "/questions/" + domainName + "/" + questionId;
     };
 
