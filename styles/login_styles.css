@@ -12,6 +12,7 @@
 }
 
 .loginBtnWrapper {
+    margin-top: 5em;
     text-align: center;
 }
 
@@ -55,14 +56,6 @@
 .header {
     color: #33b5e5;
     text-align: center;
-}
-
-.odometer {
-    font-size: 2.5rem;
-    text-align: right;
-    color: #1c6190;
-    width: 5em;
-    margin-left: 0.25em;
 }
 
 hr {

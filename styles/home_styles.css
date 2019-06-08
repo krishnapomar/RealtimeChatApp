@@ -19,6 +19,19 @@ body {
     font-weight: bold;
 }
 
+.dataHeader {
+    text-align: center;
+    margin-top: 2em;
+    font-size: 2rem;
+    color: #555;
+}
+
+.odometer {
+    font-size: 2.5rem;
+    text-align: center;
+    width: 5em;
+}
+
 .navbar {
     top: 0;
     left: 0;
@@ -188,6 +201,7 @@ body {
     padding-bottom: 2.5em;
     width: 100%;
     z-index: auto;
+    text-decoration: underline;
 }
 
 .domainAnswerBanner img {
@@ -200,8 +214,12 @@ body {
     border-radius: 50%;
 }
 
-.questionDetail {
-    margin: 1em;
+.questionDetail{
+    margin: 1.5em 1em 1em 1em;
+}
+
+.askedQuestionDetail {
+    margin: 1.5em 1em 1em 1em;
 }
 
 .answerDetail {
@@ -224,7 +242,7 @@ body {
 
 .rightArrow{
     position: absolute;
-    top: 30%;
+    top: 40%;
     right: 0px;
 }
 
@@ -238,7 +256,7 @@ body {
     font-size: 0.8em;
     position: absolute;
     top: 0px;
-    margin-top: 1.5em;
+    margin-top: 2em;
     margin-right: 3em;
     right: 5px;
 }
@@ -304,49 +322,58 @@ body {
     width: 90%;
 }
 
+.askedQuestionContainer {
+    display: inline-block;
+    margin-left: 5em;
+    margin-top: 4em;
+    width: 90%;
+}
+
 .answerContainer {
     display: table-cell;
     padding: 1em;
 }
 
-.questionView {
+.questionView, .askedQuestionView {
     position: relative;
-    border-radius: 1em;
-    padding: 10px;
+    border-radius: 0.5em;
+    padding: 5px;
     box-shadow: 0px 1px 3px #555;
     margin-bottom: 0.5em;
     z-index: auto;
 }
 
-.questionView::after, .answerView::after {
-    content: "";
-    clear: both;
-    display: table;
-}
+.questionView::after, .answerView::after, .askedQuestionView::after{
+        content: "";
+        clear: both;
+        display: table;
+    }
 
-.questionView:hover {
-    background-color: #1c6190;
-    cursor: pointer;
-    color: white;
-    border-radius: 1em;
-}
+    .questionView:hover, .askedQuestionView:hover {
+        text-decoration: underline;
+        text-decoration-color: #1c6190;
+        cursor: pointer;
+        color: #1c6190;
+        font-weight: bold;
+        border-radius: 0.5em;
+    }
 
 .answerView {
     position: relative;
-    border-radius: 1em;
+    border-radius: 0.5em;
     padding: 1px;
     background-color: #1c6190;
-    margin-left: 5em;
-    margin-top: -3.5em;
+    margin-left: 4em;
+    margin-top: -3em;
     width: 100%;
     max-width: fit-content;
-    margin-bottom: 0.5em;
+    margin-bottom: 1em;
 }
 
 .chatTail {
     position: absolute;
     margin-top: -2.5em;
-    margin-left: 4.3em;
+    margin-left: 3.3em;
     border-left: 12px solid transparent;
     border-right: 12px solid transparent;
     border-bottom: 12px solid #1c6190;
@@ -357,12 +384,18 @@ body {
     max-width: 50px;
     border-radius: 50%;
     float: left;
+    margin-top: 0.5em;
     margin-right: 0.5em;
+}
+
+.askedCategory {
+    font-size:1.5em;
+    text-decoration: underline;
 }
 
 .ansProfilePic img {
     max-width: 40px;
-    border-radius: 50%;   
+    border-radius: 50%;
 }
 
 .question {
@@ -372,7 +405,7 @@ body {
 .questionBy {
     float: right;
     color: #999;
-    font-size: 0.8em;
+    font-size: 0.7em;
 }
 
 .answerBy {
@@ -384,10 +417,12 @@ body {
     font-size: 0.7em;
 }
 
-.questionTime {
-    float: left;
+.questionTime, .askedQuestionTime {
+    position: absolute;
+    top: 5px;
+    right: 5px;
     color: #999;
-    font-size: 0.8em;
+    font-size: 0.7em;
 }
 
 .answerTime {
@@ -481,13 +516,13 @@ body {
     align-items: center;
 }
 
-.cardContainer {
-    margin: 1em;
-    display: grid;
-    padding: 0.5rem;
-    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-    grid-gap: 3em;
-}
+    .cardContainer {
+        margin: 1em;
+        display: grid;
+        padding: 0.5rem;
+        grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+        grid-gap: 3em;
+    }
 
 /*.card:hover {
     transform: scale(1.1);
@@ -496,9 +531,11 @@ body {
 }*/
 
 .card:hover {
-    background-color: #1c6190;
+    background-color: lightgray;
+    color: #1c6190;
     cursor: pointer;
-    color: white ! important;
+    text-decoration: underline;
+    text-decoration-color: #1c6190;
 }
 
 .questionHeader {
@@ -514,14 +551,27 @@ body {
     transform: translate(-50%, -50%);
 }
 
-spinner img{
-    width: 50px;
-    height: 50px;
+.spinner img{
+    width: 100px;
+    height: 100px;
 }
 
 @media (max-width: 800px) {
     .navbar a{
         font-size: 0.75em;
+    }
+
+    .dataHeader {
+        margin-top: 4em;
+        text-align: center;
+        font-size: 1rem;
+        font-weight: bold;
+    }
+
+    .odometer {
+        font-size: 1.5em;
+        text-align: center;
+        width: 3em;
     }
 
     .cardContainer {
@@ -571,7 +621,8 @@ spinner img{
     }
 
     .answerView {
-        margin-top: -4.5em;
+        margin-left: 4.5em;
+        margin-top: -3.5em;
         font-size: 1em;
     }
 
@@ -585,7 +636,6 @@ spinner img{
 
     .questionTime, .answerTime {
         font-size: 0.5em;
-        padding-right: 5em;
     }
 
     .askButton {
@@ -632,7 +682,7 @@ spinner img{
     }
 
     .domainAnswerBanner {
-        margin-top: 4em;
+        margin-top: 3.5em;
         width: 90%;
         font-size: 0.8em;
     }
@@ -643,7 +693,11 @@ spinner img{
     }
 
     .chatTail {
-        margin-left: 4.5em;
-        margin-top: -3.5em;
+        margin-left: 3.75em;
+        margin-top: -2.5em;
+    }
+
+    .askedQuestionContainer{
+        margin-left: 1em;
     }
 }

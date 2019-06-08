@@ -69,14 +69,24 @@ angular.module('AskApp')
     .config(function ($httpProvider, $httpParamSerializerJQLikeProvider) {
         $httpProvider.defaults.transformRequest.unshift($httpParamSerializerJQLikeProvider.$get());
         $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=utf-8';
+
+        //var ansRef = firebase.database().ref().child('Answered').child('Total');
+        //var askRef = firebase.database().ref().child('Asked').child('Total');
+        //console.log(ansRef);
+        //console.log(askRef);
+        //setTimeout(function () {
+        //    askedQuestions.innerHTML = 125;
+        //}, 1000);
+
+        //setTimeout(function () {
+        //    answeredQuestions.innerHTML = 30;
+        //}, 1000);
     });
 
 myApp.controller("homeController", function ($scope, $window) {
     console.log("Inside homeController controller");
 
     onPageLoad("home");
-    pbAnimate();
-
     $scope.domainBtnclick = function (item) {
         $window.location.href = "/questions/" + item;
     };
@@ -84,16 +94,14 @@ myApp.controller("homeController", function ($scope, $window) {
 
 myApp.controller("domainController", function ($scope, $routeParams, $firebaseArray, $window) {
     console.log("Inside Domain controller");
-
+    $('#spinner').show();
     onPageLoad("domain");
     var domainName = $routeParams.domainName;
     var finalQuestions = [];
-    $('#spinner').show();
     $('#domainSelect').val(domainName);
     
     var dbRef = firebase.database().ref().child('DomainNames').child(domainName);
     $scope.questions = $firebaseArray(dbRef);
-    console.log($scope.questions);
     $('#domainSelect').on('change', function () {
         $window.location.href = "/questions/" + this.value;
     });
@@ -143,9 +151,8 @@ myApp.controller("domainController", function ($scope, $routeParams, $firebaseAr
  
 myApp.controller("questionController", function ($scope, $routeParams, $firebaseArray, $firebaseObject, $window) {
     console.log("Inside questionController controller");
-
-    onPageLoad("question");
     $('#spinner').show();
+    onPageLoad("question");
     $('#domainAnswerBanner').hide();
     
     var dbQuestionRef = firebase.database().ref().child('DomainNames').child($routeParams.domainName).child('-' + $routeParams.questionKey);
@@ -198,21 +205,57 @@ myApp.controller("questionController", function ($scope, $routeParams, $firebase
     //}
 });
 
-myApp.controller("askedController", function ($scope, $window) {
+myApp.controller("askedController", function ($scope, $window, $firebaseArray) {
     console.log("Inside askedController controller");
-
+    $('#spinner').show();
     onPageLoad("asked");
+    var questionsList = [];
+    var askedQuestions = [];
+
+    var user = sessionStorage.getItem("user");
+    if (!user) {
+        $window.location.href = "/Login";
+    }
+
+    var dbRef = firebase.database().ref().child('DomainNames');
+    questionsList = $firebaseArray(dbRef);
+
+    questionsList.$loaded().finally(function () {
+        questionsList.forEach(function (item) {
+            for (prop in item) {
+                if (prop.includes('-')) {
+                    if (item[prop].chatBy == user) {
+                        var data = {};
+                        data["domainName"] = item.$id;
+                        data["questionID"] = prop;
+                        data["chatMsg"] = item[prop].chatMsg;
+                        data["chatTime"] = item[prop].chatTime;
+                        askedQuestions.push(data);
+                    }
+                }
+            }
+        });
+        $scope.askedQuestions = askedQuestions;
+        $('#spinner').hide();
+    });
+
+    $scope.selectedAskedQuestion = function (q) {
+        console.log(q);
+        var id = q.questionID;
+        var questionid = id.replace('-', '');
+        $window.location.href = "/questions/" + q.domainName + "/" + questionid;
+    };
 });
 
 myApp.controller("answeredController", function ($scope, $window) {
     console.log("Inside answeredController controller");
-    
+    //$('#spinner').show();
     onPageLoad("answered");
 });
 
 myApp.controller("profileController", function ($scope, $window) {
     console.log("Inside profileController controller");
-
+    //$('#spinner').show();
     onPageLoad("profile");
 });
 
@@ -220,14 +263,6 @@ myApp.controller("contactUsController", function ($scope, $window) {
     console.log("Inside contactUsController controller");
 
     onPageLoad("contact");
-
-    setTimeout(function () {
-        askedQuestions.innerHTML = 124;
-    }, 1000);
-
-    setTimeout(function () {
-        answeredQuestions.innerHTML = 23;
-    }, 1000);
 
     $scope.isDisabled = false;
     $scope.focus = true;
@@ -297,7 +332,7 @@ async function googleSignIn($window) {
         sessionStorage.setItem("user", result.user.displayName);
         sessionStorage.setItem("profilePic", result.user.photoURL);
         sessionStorage.setItem("email", result.user.email);
-        $window.location.href = "/Home";
+        $window.history.go(-1);
     }).catch(function (error) {
         var errorMessage = error.message;
         $('#errorMessage').show();
@@ -328,7 +363,6 @@ function onPageLoad($page) {
     else {
         $("#searchBtnHolder").hide();
     }
-    
     var profilePic = sessionStorage.getItem("profilePic")
     if (profilePic) {
         $("#userProfilePic").attr("src", profilePic);

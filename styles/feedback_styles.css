@@ -73,12 +73,6 @@
     margin-bottom: 0.25em;
 }
 
-.dataHeader {
-    text-align: center;
-    font-size: 2rem;
-    color: black;
-}
-
 .intro {
     margin-top: 5em;
     text-align: center;
@@ -103,11 +97,6 @@
 
     .comments {
         width: 16em;
-    }
-    .dataHeader {
-        margin-top: 2.5rem;
-        text-align: center;
-        font-size: 1rem;
     }
 
     .feedbackHolder{
