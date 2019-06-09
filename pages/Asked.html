@@ -2,6 +2,7 @@
     <div class="spinner" id="spinner">
         <img src="../images/spinner.gif" />
     </div>
+    <button class="askButton" ng-click="askQuestion()">Ask a Question</button>
     <div class="askedQuestionContainer">
         <div class="askedQuestionView" data-ng-repeat="q in askedQuestions" ng-click="selectedAskedQuestion(q)">
             <span class="askedCategory">{{q.domainName}}</span>

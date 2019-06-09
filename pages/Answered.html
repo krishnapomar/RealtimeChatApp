@@ -1,4 +1,13 @@
 ﻿<div>
-    <h2>Your Answered questions here</h2>
-    <p>Page under construction !!</p>
+    <div class="spinner" id="spinner">
+        <img src="../images/spinner.gif" />
+    </div>
+    <div class="askedQuestionContainer">
+        <div class="askedQuestionView" data-ng-repeat="q in answeredQuestions" ng-click="selectedAnsweredQuestion(q)">
+            <span class="askedCategory">{{q.domainName}}</span>
+            <p class="askedQuestionDetail">{{q.chatMsg}}</p>
+            <span class="askedQuestionTime">{{q.chatTime}}</span>
+            <div class="rightArrow"><img src="../images/right_arrow.png" /></div>
+        </div>
+    </div>
 </div>

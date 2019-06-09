@@ -1,7 +1,7 @@
 var myApp = angular.module("AskApp", ['ngRoute', 'firebase']);
 
 var config = {
-// Initialize Firebase
+    // Initialize Firebase
     apiKey: "AIzaSyCvDZ3eiYahjMyLo_LsBYVz1PcdzWxZyw0",
     authDomain: "askk-me.firebaseapp.com",
     databaseURL: "https://askk-me.firebaseio.com",
@@ -59,28 +59,16 @@ myApp.config(function ($routeProvider, $locationProvider) {
             controller: 'questionController'
         })
 
-        //.otherwise({
-        //    templateUrl: 'Index.html',
-        //    controller: 'loginController'
-        //});
+    //.otherwise({
+    //    templateUrl: 'Index.html',
+    //    controller: 'loginController'
+    //});
 });
 
 angular.module('AskApp')
     .config(function ($httpProvider, $httpParamSerializerJQLikeProvider) {
         $httpProvider.defaults.transformRequest.unshift($httpParamSerializerJQLikeProvider.$get());
         $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=utf-8';
-
-        //var ansRef = firebase.database().ref().child('Answered').child('Total');
-        //var askRef = firebase.database().ref().child('Asked').child('Total');
-        //console.log(ansRef);
-        //console.log(askRef);
-        //setTimeout(function () {
-        //    askedQuestions.innerHTML = 125;
-        //}, 1000);
-
-        //setTimeout(function () {
-        //    answeredQuestions.innerHTML = 30;
-        //}, 1000);
     });
 
 myApp.controller("homeController", function ($scope, $window) {
@@ -99,7 +87,7 @@ myApp.controller("domainController", function ($scope, $routeParams, $firebaseAr
     var domainName = $routeParams.domainName;
     var finalQuestions = [];
     $('#domainSelect').val(domainName);
-    
+
     var dbRef = firebase.database().ref().child('DomainNames').child(domainName);
     $scope.questions = $firebaseArray(dbRef);
     $('#domainSelect').on('change', function () {
@@ -121,7 +109,7 @@ myApp.controller("domainController", function ($scope, $routeParams, $firebaseAr
         $('#spinner').hide();
         finalQuestions = $scope.questions;
     });
-    
+
     $scope.selectQuestion = function (q) {
         var questionId = q.$id.replace('-', '');
         $window.location.href = "/questions/" + domainName + "/" + questionId;
@@ -148,20 +136,24 @@ myApp.controller("domainController", function ($scope, $routeParams, $firebaseAr
         }
     };
 });
- 
+
 myApp.controller("questionController", function ($scope, $routeParams, $firebaseArray, $firebaseObject, $window) {
     console.log("Inside questionController controller");
     $('#spinner').show();
+    $('#zeroAnswers').hide();
     onPageLoad("question");
     $('#domainAnswerBanner').hide();
-    
+
     var dbQuestionRef = firebase.database().ref().child('DomainNames').child($routeParams.domainName).child('-' + $routeParams.questionKey);
     $scope.questionDetails = $firebaseObject(dbQuestionRef);
-    
+
     var dbCommentsRef = firebase.database().ref().child('DomainNames').child($routeParams.domainName).child('-' + $routeParams.questionKey).child('comments');
     $scope.answers = $firebaseArray(dbCommentsRef);
 
     $scope.answers.$loaded().finally(function () {
+        if ($scope.answers.length == 0) {
+            $('#zeroAnswers').show();
+        }
         $('#spinner').hide();
         $('#domainAnswerBanner').show();
     });
@@ -170,7 +162,7 @@ myApp.controller("questionController", function ($scope, $routeParams, $firebase
         var user = sessionStorage.getItem("user");
         var profilePic = sessionStorage.getItem("profilePic");
         var emailID = sessionStorage.getItem("email");
-        
+
         if (user) {
             var questionAnswered = window.prompt("Answer", "");
             if (questionAnswered) {
@@ -190,12 +182,12 @@ myApp.controller("questionController", function ($scope, $routeParams, $firebase
     };
 
     //$scope.answers.$watch(function (e) {
-        //    if (e.event == "child_added") {
-        //        console.log('Something changed');
-        //        e.key
-        //    }        
-        //    console.log(e);
-        //});
+    //    if (e.event == "child_added") {
+    //        console.log('Something changed');
+    //        e.key
+    //    }        
+    //    console.log(e);
+    //});
 
     //$scope.likeBtn = function ($answerID) {
     //    console.log("Inside Like btn method");
@@ -212,8 +204,8 @@ myApp.controller("askedController", function ($scope, $window, $firebaseArray) {
     var questionsList = [];
     var askedQuestions = [];
 
-    var user = sessionStorage.getItem("user");
-    if (!user) {
+    var email = sessionStorage.getItem("email");
+    if (!email) {
         $window.location.href = "/Login";
     }
 
@@ -224,7 +216,7 @@ myApp.controller("askedController", function ($scope, $window, $firebaseArray) {
         questionsList.forEach(function (item) {
             for (prop in item) {
                 if (prop.includes('-')) {
-                    if (item[prop].chatBy == user) {
+                    if (item[prop].chatEmail == email) {
                         var data = {};
                         data["domainName"] = item.$id;
                         data["questionID"] = prop;
@@ -240,23 +232,84 @@ myApp.controller("askedController", function ($scope, $window, $firebaseArray) {
     });
 
     $scope.selectedAskedQuestion = function (q) {
-        console.log(q);
         var id = q.questionID;
         var questionid = id.replace('-', '');
         $window.location.href = "/questions/" + q.domainName + "/" + questionid;
     };
+
+    $('#searchText').on('input', function () {
+        var newContent = [];
+        askedQuestions.forEach(function ($question) {
+            if ($question.chatMsg.toLowerCase().includes($('#searchText').val().toLowerCase())) {
+                newContent.push($question);
+            }
+        });
+        $scope.askedQuestions = newContent;
+        $scope.$apply();
+    });
 });
 
-myApp.controller("answeredController", function ($scope, $window) {
+myApp.controller("answeredController", function ($scope, $window, $firebaseArray) {
     console.log("Inside answeredController controller");
-    //$('#spinner').show();
+    $('#spinner').show();
     onPageLoad("answered");
+    var questionsList = [];
+    var answeredQuestions = [];
+
+    var email = sessionStorage.getItem("email");
+    if (!email) {
+        $window.location.href = "/Login";
+    }
+
+    var dbRef = firebase.database().ref().child('DomainNames');
+    questionsList = $firebaseArray(dbRef);
+
+    questionsList.$loaded().finally(function () {
+        questionsList.forEach(function (item) {
+            for (prop in item) {
+                if (prop.includes('-')) {
+                    if (item[prop].comments != undefined) {
+                        for (commentProp in item[prop].comments) {
+                            if (item[prop].comments[commentProp].commentEmail == email) {
+                                var data = {};
+                                data["domainName"] = item.$id;
+                                data["questionID"] = prop;
+                                data["chatMsg"] = item[prop].chatMsg;
+                                data["chatTime"] = item[prop].chatTime;
+                                answeredQuestions.push(data);
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        $scope.answeredQuestions = answeredQuestions;
+        $('#spinner').hide();
+    });
+
+    $scope.selectedAnsweredQuestion = function (q) {
+        var id = q.questionID;
+        var questionid = id.replace('-', '');
+        $window.location.href = "/questions/" + q.domainName + "/" + questionid;
+    };
+
+    $('#searchText').on('input', function () {
+        var newContent = [];
+        answeredQuestions.forEach(function ($question) {
+            if ($question.chatMsg.toLowerCase().includes($('#searchText').val().toLowerCase())) {
+                newContent.push($question);
+            }
+        });
+        $scope.answeredQuestions = newContent;
+        $scope.$apply();
+    });
 });
 
 myApp.controller("profileController", function ($scope, $window) {
     console.log("Inside profileController controller");
-    //$('#spinner').show();
+    $('#spinner').show();
     onPageLoad("profile");
+    $('#spinner').hide();
 });
 
 myApp.controller("contactUsController", function ($scope, $window) {
@@ -299,7 +352,7 @@ myApp.controller("loginController", function ($scope, $window) {
 
     onPageLoad("login");
     $('#errorMessage').hide();
-    
+
     var token = sessionStorage.getItem("googleToken");
     if (!token) {
         $('#signOut').css('display', 'none');
@@ -357,184 +410,14 @@ async function googleSignOut($window) {
 
 function onPageLoad($page) {
     closeNav();
-    if ($page == "domain") {
-        $("#searchBtnHolder").show();
+    if ($page == "home" || $page == "contact") {
+        $("#searchBtnHolder").hide();
     }
     else {
-        $("#searchBtnHolder").hide();
+        $("#searchBtnHolder").show();
     }
     var profilePic = sessionStorage.getItem("profilePic")
     if (profilePic) {
         $("#userProfilePic").attr("src", profilePic);
     }
-}
-
-function pbAnimate() {
-    $('.pbArts').animate(
-        { width: '100%' },
-        {
-            duration: 2000,
-            step: function (now, fx) {
-                var data = Math.round(now);
-                $(this).html(data + '%');
-
-            }
-        }
-    );
-
-    $('.pbAutomobiles').animate(
-        { width: '44%' },
-        {
-            duration: 2000,
-            step: function (now, fx) {
-                var data = Math.round(now);
-                $(this).html(data + '%');
-
-            }
-        }
-    );
-
-    $('.pbEducation').animate(
-        { width: '15%' },
-        {
-            duration: 2000,
-            step: function (now, fx) {
-                var data = Math.round(now);
-                $(this).html(data + '%');
-
-            }
-        }
-    );
-
-    $('.pbAppliances').animate(
-        { width: '80%' },
-        {
-            duration: 2000,
-            step: function (now, fx) {
-                var data = Math.round(now);
-                $(this).html(data + '%');
-
-            }
-        }
-    );
-
-    $('.pbEntertainment').animate(
-        { width: '44%' },
-        {
-            duration: 2000,
-            step: function (now, fx) {
-                var data = Math.round(now);
-                $(this).html(data + '%');
-
-            }
-        }
-    );
-
-    $('.pbFashion').animate(
-        { width: '23%' },
-        {
-            duration: 2000,
-            step: function (now, fx) {
-                var data = Math.round(now);
-                $(this).html(data + '%');
-
-            }
-        }
-    );
-
-    $('.pbFood').animate(
-        { width: '55%' },
-        {
-            duration: 2000,
-            step: function (now, fx) {
-                var data = Math.round(now);
-                $(this).html(data + '%');
-
-            }
-        }
-    );
-
-    $('.pbHealth').animate(
-        { width: '40%' },
-        {
-            duration: 2000,
-            step: function (now, fx) {
-                var data = Math.round(now);
-                $(this).html(data + '%');
-
-            }
-        }
-    );
-
-    $('.pbInfoTech').animate(
-        { width: '20%' },
-        {
-            duration: 2000,
-            step: function (now, fx) {
-                var data = Math.round(now);
-                $(this).html(data + '%');
-
-            }
-        }
-    );
-
-    $('.pbOthers').animate(
-        { width: '50%' },
-        {
-            duration: 2000,
-            step: function (now, fx) {
-                var data = Math.round(now);
-                $(this).html(data + '%');
-
-            }
-        }
-    );
-
-    $('.pbPhoto').animate(
-        { width: '50%' },
-        {
-            duration: 2000,
-            step: function (now, fx) {
-                var data = Math.round(now);
-                $(this).html(data + '%');
-
-            }
-        }
-    );
-
-    $('.pbSDevices').animate(
-        { width: '50%' },
-        {
-            duration: 2000,
-            step: function (now, fx) {
-                var data = Math.round(now);
-                $(this).html(data + '%');
-
-            }
-        }
-    );
-
-    $('.pbSports').animate(
-        { width: '50%' },
-        {
-            duration: 2000,
-            step: function (now, fx) {
-                var data = Math.round(now);
-                $(this).html(data + '%');
-
-            }
-        }
-    );
-
-    $('.pbTravel').animate(
-        { width: '10%' },
-        {
-            duration: 2000,
-            step: function (now, fx) {
-                var data = Math.round(now);
-                $(this).html(data + '%');
-
-            }
-        }
-    );
 }
