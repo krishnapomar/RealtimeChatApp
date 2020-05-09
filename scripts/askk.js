@@ -2,12 +2,12 @@ var myApp = angular.module("AskApp", ['ngRoute', 'firebase']);
 
 var config = {
     // Initialize Firebase
-    apiKey: "AIzaSyCvDZ3eiYahjMyLo_LsBYVz1PcdzWxZyw0",
-    authDomain: "askk-me.firebaseapp.com",
-    databaseURL: "https://askk-me.firebaseio.com",
-    projectId: "askk-me",
+    apiKey: "*******************",
+    authDomain: "**********************",
+    databaseURL: "***********",
+    projectId: "************",
     storageBucket: "",
-    messagingSenderId: "375849091041"
+    messagingSenderId: "**************"
 };
 
 firebase.initializeApp(config);
